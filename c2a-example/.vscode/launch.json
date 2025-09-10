@@ -1,0 +1,41 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "preLaunchTask": "Build monazite",
+      "type": "probe-rs-debug",
+      "request": "launch",
+      "name": "Run on nucleo",
+      "runtimeExecutable": "./tools/probe-rs-wrapper.sh",
+      "cwd": "${workspaceFolder}",
+      "connectUnderReset": false,
+      "chipDescriptionPath": "./monazite/chip-description.yaml",
+      "chip": "monazite_bank1",
+      "flashingConfig": {
+        "flashingEnabled": true,
+      },
+      "coreConfigs": [
+        {
+          "coreIndex": 0,
+          "programBinary": "./monazite/target/thumbv7em-none-eabihf/debug/monazite",
+          "rttEnabled": true,
+          "rttChannelFormats": [
+            {
+              "channelNumber": 0,
+              "dataFormat": "String",
+              "showTimestamps": false
+            },
+            {
+              "channelNumber": 1,
+              "dataFormat": "Defmt",
+              "showTimestamps": false
+            },
+          ],
+        }
+      ]
+    }
+  ]
+}

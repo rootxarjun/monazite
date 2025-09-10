@@ -1,0 +1,17 @@
+{
+  "name": "c2a-monazite-example",
+  "version": "0.0.0",
+  "scripts": {
+    "build:tlmcmddb": "tlmcmddb-cli bundle --pretty tlm-cmd-db/TLM_DB/calced_data tlm-cmd-db/CMD_DB tlmcmddb.json",
+    "run:gaia": "tmtc-c2a --satconfig satconfig.json --tlmcmddb tlmcmddb.json",
+    "run:kble": "bash -c \"while :; do kble -s <(./spaghetti.sh); sleep 1; done\"",
+    "run": "run-p run:*",
+    "devtools": "run-s build:* run",
+    "sils": "cargo run",
+    "start": "run-p devtools sils"
+  },
+  "devDependencies": {
+    "npm-run-all2": "6.1.2",
+    "tools": "file:./tools"
+  }
+}

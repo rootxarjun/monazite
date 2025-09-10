@@ -1,0 +1,24 @@
+[workspace]
+resolver = "2"
+members = ["sils"]
+default-members = ["sils"]
+
+[workspace.lints.clippy]
+pedantic = "warn"
+
+[workspace.dependencies]
+c2a-monazite-example = { path = "./" }
+
+[lints]
+workspace = true
+
+[package]
+name = "c2a-monazite-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+c2a-core = "4.1.0"
+
+[build-dependencies]
+cmake = "0.1.50"

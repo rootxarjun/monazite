@@ -1,0 +1,33 @@
+[package]
+name = "sils"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lints]
+workspace = true
+
+[dependencies]
+c2a-monazite-example = { workspace = true }
+c2a-dev-runtime = { git = "https://github.com/arkedge/c2a-core.git", tag = "v4.5.1" }
+
+c2a-monazite-adc-bind.path = "../../hal-bind/adc-bind"
+c2a-monazite-adc-dev.path = "../../dev-hal/c2a-monazite-adc-dev"
+c2a-monazite-btmgr-bind.path = "../../hal-bind/btmgr-bind"
+c2a-monazite-btmgr-dev.path = "../../dev-hal/c2a-monazite-btmgr-dev"
+c2a-monazite-ccsds-bind.path = "../../hal-bind/ccsds-bind"
+c2a-monazite-ccsds-dev.path = "../../dev-hal/c2a-monazite-ccsds-dev"
+c2a-monazite-gpio-bind.path = "../../hal-bind/gpio-bind"
+c2a-monazite-gpio-dev.path = "../../dev-hal/c2a-monazite-gpio-dev"
+c2a-monazite-iflash-bind.path = "../../hal-bind/iflash-bind"
+c2a-monazite-iflash-dev.path = "../../dev-hal/c2a-monazite-iflash-dev"
+c2a-monazite-ramecc-bind.path = "../../hal-bind/ramecc-bind"
+c2a-monazite-ramecc-dev.path = "../../dev-hal/c2a-monazite-ramecc-dev"
+c2a-monazite-thermometer-bind.path = "../../hal-bind/thermometer-bind"
+c2a-monazite-thermometer-dev.path = "../../dev-hal/c2a-monazite-thermometer-dev"
+c2a-monazite-uart-bind.path = "../../hal-bind/uart-bind"
+c2a-monazite-uart-dev.path = "../../dev-hal/c2a-monazite-uart-dev"
+c2a-monazite-wdt-bind.path = "../../hal-bind/wdt-bind"
+c2a-monazite-wdt-dev.path = "../../dev-hal/c2a-monazite-wdt-dev"
+

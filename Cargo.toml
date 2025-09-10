@@ -1,0 +1,31 @@
+[workspace]
+resolver = "2"
+members = [
+    "ringbuf",
+    "dev-hal/*",
+    "hal-bind/*",
+]
+exclude = [
+    "bootloader",
+    "bootloader/*",
+    "monazite-rt",
+    "monazite-rt/*",
+    "flash-algo",
+]
+
+[workspace.lints.clippy]
+pedantic = "warn"
+
+[workspace.dependencies]
+c2a-core = "4.1.0"
+c2a-bind-utils = { git = "https://github.com/arkedge/c2a-core.git" }
+atomic-once-cell.path = "hal-bind/atomic-once-cell"
+c2a-monazite-adc-bind.path = "hal-bind/adc-bind"
+c2a-monazite-btmgr-bind.path = "hal-bind/btmgr-bind"
+c2a-monazite-ccsds-bind.path = "hal-bind/ccsds-bind"
+c2a-monazite-gpio-bind.path = "hal-bind/gpio-bind"
+c2a-monazite-iflash-bind.path = "hal-bind/iflash-bind"
+c2a-monazite-ramecc-bind.path = "hal-bind/ramecc-bind"
+c2a-monazite-thermometer-bind.path = "hal-bind/thermometer-bind"
+c2a-monazite-uart-bind.path = "hal-bind/uart-bind"
+c2a-monazite-wdt-bind.path = "hal-bind/wdt-bind"

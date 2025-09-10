@@ -1,0 +1,72 @@
+name: Rust
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        workspace:
+          - "."
+          - monazite-rt
+          - bootloader
+          - flash-algo
+          - c2a-example
+          - c2a-example/monazite
+
+    steps:
+      - uses: actions/checkout@v4.1.7
+        with:
+          submodules: recursive
+
+      - name: Update apt cache
+        run: sudo apt-get update
+
+      - name: Install build dependencies
+        run: sudo apt-get install -yq libudev-dev libusb-dev gcc-multilib g++-multilib gcc-arm-none-eabi
+
+      - name: Get Rust toolchain
+        id: toolchain
+        run: |
+          awk -F'[ ="]+' '$1 == "channel" { print "toolchain=" $2 }' ${{ matrix.workspace }}/rust-toolchain.toml >> "$GITHUB_OUTPUT"
+
+      - uses: dtolnay/rust-toolchain@v1
+        with:
+          toolchain: ${{ steps.toolchain.outputs.toolchain }}
+          targets: thumbv7em-none-eabihf, i686-unknown-linux-gnu
+          components: clippy,rustfmt
+
+      - uses: Swatinem/rust-cache@v2.7.3
+        with:
+          workspaces: |
+            .
+            monazite-rt
+            bootloader
+            flash-algo
+            c2a-example
+            c2a-example/monazite
+
+      - name: Check formatting (cargo fmt)
+        working-directory: ${{ matrix.workspace }}
+        run: cargo fmt -- --check
+
+      - name: reviewdog / clippy
+        uses: sksat/action-clippy@v0.7.1
+        with:
+          working_directory: ${{ matrix.workspace }}
+
+      - name: Test ringbuf
+        if: matrix.workspace == '.'
+        run: cargo test -p ringbuf

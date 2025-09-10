@@ -1,0 +1,17 @@
+[package]
+name = "c2a-monazite-ccsds-dev"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = "1"
+futures = "0.3"
+kble-socket = { version = "0.3.0", features = ["tungstenite"] }
+tokio-tungstenite = "0.20"
+tokio = { version = "1", features = ["sync", "rt"] }
+c2a-monazite-ccsds-bind = { workspace = true }

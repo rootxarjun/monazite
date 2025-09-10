@@ -1,0 +1,56 @@
+[workspace]
+resolver = "2"
+
+[workspace.dependencies]
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+flash-algorithm = { version = "0.4.0" }
+stm32h7 = { version = "0.15.1", features = ["stm32h753v"], default-features = false }
+
+[workspace.lints.clippy]
+pedantic = "warn"
+
+[package]
+edition = "2021"
+readme = "README.md"
+name = "monazite-flash-algo"
+version = "0.1.0"
+
+[lints]
+workspace = true
+
+[dependencies]
+cortex-m = { workspace = true }
+flash-algorithm = { workspace = true }
+stm32h7 = { workspace = true }
+
+[profile.dev]
+codegen-units = 1
+debug = 2
+debug-assertions = true
+incremental = false
+opt-level = 3
+overflow-checks = true
+
+[profile.release]
+codegen-units = 1
+debug = 2
+debug-assertions = false
+incremental = false
+lto = "fat"
+opt-level = 's'
+overflow-checks = false
+
+# do not optimize proc-macro crates = faster builds from scratch
+[profile.dev.build-override]
+codegen-units = 8
+debug = false
+debug-assertions = false
+opt-level = 0
+overflow-checks = false
+
+[profile.release.build-override]
+codegen-units = 8
+debug = false
+debug-assertions = false
+opt-level = 0
+overflow-checks = false

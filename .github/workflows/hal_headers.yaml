@@ -1,0 +1,44 @@
+name: Match HAL headers
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: arkedge/gh-federation@v4.0.1
+        with:
+          endpoint: ${{ secrets.GH_FEDERATION_ENDPOINT }}
+
+      - uses: actions/checkout@v4.1.7
+        with:
+          submodules: recursive
+
+      - name: Diff headers
+        run: |
+          set -Cue -o pipefail
+
+          while IFS= read -r -d '' HAL_BIND_DIR
+          do
+            HAL_NAME="${HAL_BIND_DIR#hal-bind/}"
+            HAL_NAME="${HAL_NAME%-bind}"
+
+            HEADER_SRC="hal-bind/${HAL_NAME}-bind/include/${HAL_NAME}.h"
+            HEADER_DST="c2a-example/src/src_user/hal/${HAL_NAME}.h"
+
+            if test -e "$HEADER_SRC"; then
+              diff "$HEADER_SRC" "$HEADER_DST"
+            else
+              test ! -e "$HEADER_DST"
+            fi
+          done < <(find hal-bind -type d -name '*-bind' -mindepth 1 -maxdepth 1 -print0)
+

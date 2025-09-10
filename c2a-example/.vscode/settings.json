@@ -1,0 +1,13 @@
+{
+  "rust-analyzer.check.allTargets": false,
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.check.command": "clippy",
+  // probe-rs-wrapper.sh が socat を実行する度に port-forward されて鬱陶しいので無効化
+  "remote.autoForwardPorts": false,
+  // C のファイルを開いた時に拡張子と言語の関連付けが自動で追記されて鬱陶しいので無効化
+  "C_Cpp.autoAddFileAssociations": false,
+  // src_user/ 以下でヒットすることを期待してコード検索すると src_core/examples/ 以下がヒットしてノイジーなので除外
+  "search.exclude": {
+    "src/src_core/examples/**": true,
+  },
+}

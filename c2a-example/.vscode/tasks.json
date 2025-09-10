@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build monazite",
+      "type": "cargo",
+      "command": "build",
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}/monazite",
+      },
+    },
+  ]
+}
